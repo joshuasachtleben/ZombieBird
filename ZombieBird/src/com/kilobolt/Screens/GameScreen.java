@@ -3,18 +3,24 @@ package com.kilobolt.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.kilobolt.GameWorld.GameRenderer;
+import com.kilobolt.GameWorld.GameWorld;
 
 public class GameScreen implements Screen {
 	
+	private GameWorld world;
+	private GameRenderer renderer;
+	
 	public GameScreen() {
 		System.out.println("GameScreen Attached");
+		world = new GameWorld(); //initialize world
+		renderer = new GameRenderer(world); // initialize renderer
 	}
 
 	@Override
 	public void render(float delta) {
-		// Draws the RGB color (10, 15, 230) at 100% opacity
-		Gdx.gl.glClearColor(10/255.0f,  15/255.0f, 230/255.0f, 1f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		world.update(delta);
+		renderer.render();
 	}
 
 	@Override
