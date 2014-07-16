@@ -1,5 +1,14 @@
 package com.kilobolt.ZombieBird;
 
-public class ZBGame {
+import com.badlogic.gdx.Game;
+import com.kilobolt.Screens.GameScreen;
+
+public class ZBGame extends Game {
+
+	@Override
+	public void create() {
+		System.out.println("ZBGame Created!");
+		setScreen(new GameScreen());
+	}
 	
 }
