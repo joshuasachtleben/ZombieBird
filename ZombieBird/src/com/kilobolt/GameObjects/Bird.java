@@ -21,7 +21,7 @@ public class Bird {
 	}
 
 	public void update(float delta) {
-		velocity.add(acceleration).cpy().scl(delta); /*
+		velocity.add(acceleration.cpy().scl(delta)); /*
 														* adds to the velocity vector a copy of the scaled acceleration vector.
 														* Scaled means that we multiply the acceleration and velocity vectors by the delta, which is the amount of time that has passed since the update method was previously called. This has a normalizing effect. 
 														* If the game slows down for any reason, the delta will go up (the processor will have taken longer time to complete the previous iteration, or repetition, of the loop). By scaling the Vectors with delta, we can achieve frame-rate independent movement. If the update method took twice as long to execute, then we just move our character by 2x the original velocity, and so on.
@@ -31,6 +31,8 @@ public class Bird {
 		if(velocity.y > 200) {
 			velocity.y = 200;  //limits velocity to no more than 200
 		}
+		
+		position.add(velocity.cpy().scl(delta));
 	}
 
 	public void onClick() {
