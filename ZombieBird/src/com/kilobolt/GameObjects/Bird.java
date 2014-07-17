@@ -32,11 +32,35 @@ public class Bird {
 			velocity.y = 200;  //limits velocity to no more than 200
 		}
 		
-		position.add(velocity.cpy().scl(delta));
+		position.add(velocity.cpy().scl(delta));  // move the position of the bird based on the calculated velocity after being altered for acceleration
+		
+		// rotate counterclockwise (if flying)
+		if(velocity.y < 0) {
+			rotation -= 600 * delta; // scales by delta time to compensate for varying speeds of devices
+			if(rotation < -20) {
+				rotation = -20; // limits counterclockwise rotation to no smaller than -20
+			}
+		}
+		
+		// rotate clockwise
+		if(isFalling()) {
+			rotation += 480 * delta; // scales by delta time to compensate for varying speds of devices
+			if(rotation > 90) {
+				rotation = 90; // limits clockwise rotation to no bigger than 90
+			}
+		}
 	}
 
 	public void onClick() {
 		velocity.y = -140;
+	}
+	
+	public boolean isFalling(){
+		return velocity.y > 110; // if the bird is traveling down the y-axis faster than 110, then it is falling
+	}
+	
+	public boolean shouldntFlap() {
+		return velocity.y > 70; // if the bird is traveling down the y-axis faster than 70, then it shouldn't flap its wings
 	}
 
 	public float getX() {
